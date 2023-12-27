@@ -27,7 +27,7 @@ public class Main {
         ArrayList<Calculator> products = new  ArrayList<>();
         do {
             printOut("Давайте добавим новый товар.\nУкажите его название:");
-            String product = scanner.next();
+            String product = getProduct();
             printOut("Отлично, теперь укажите его стоимость в формате *рубли*,*копейки*:");
             products.add(new Calculator(product, getPrice()));
             printOut("Товар успешно записан!\nЕсли хотите добавить еще товары нажмите Enter? Если нет, напишите \"завершить\".");
@@ -40,7 +40,7 @@ public class Main {
         do {
             try {
                 price = Double.parseDouble(scanner.next().replace(",", "."));
-                if (0 == price) printOut("Цена не может равняться нулю! Повторите ввод:");
+                if (0 >= price) printOut("Цена не может равняться нулю или быть отрицательной! Повторите ввод:");
             } catch (Exception e) {
                 printOut("Вы ввели неверное значение! Повторите ввод:");
             }
@@ -63,5 +63,16 @@ public class Main {
             }
         } while (count <= 1 );
         return count;
+    }
+
+    private static String getProduct(){
+        String product;
+        do {
+            product = scanner.next().trim();
+            if (product.length() != 0)
+                break;
+            printOut("Пустое название быть не может!\nУкажите название товара:");
+        } while (true);
+        return product;
     }
 }
